@@ -22,6 +22,7 @@ import javax.persistence.Id;
 @Table(name="CONTACT_MECH")
 public class ContactMech {
 
+	@Id
 	@Column(name="CONTACT_MECH_ID", nullable=false)
 	private String contactMechId;
 	

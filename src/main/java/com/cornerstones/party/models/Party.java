@@ -1,7 +1,7 @@
 /**
  * party entity class
  */
-package com.cornerstones.models;
+package com.cornerstones.party.models;
 
 /**
  * @author Jim Zhu
@@ -13,8 +13,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.slf4j.Logger;
@@ -24,10 +23,9 @@ import org.slf4j.LoggerFactory;
 @Table(name="PARTY")
 public class Party implements Serializable  {
 	
-private static final Logger logger= LoggerFactory.getLogger(Party.class);
 
 @Id
-@GeneratedValue(strategy=GenerationType.TABLE)
+
 @Column(name="PARTY_ID")
 private String partyId;
 @Column(name="PARTY_TYPE_ID")
@@ -42,6 +40,8 @@ private String description;
 private String statusId;
 @Column(name="CREATED_DATE")
 private Timestamp createdDate;
+@Column(name="LAST_MODIFIED_DATE")
+private Timestamp lastModDate;
 @Column (name="CREATED_BY_USER_LOGIN")
 private String createdByUserLogin;
 @Column (name="LAST_MODIFIED_BY_USER_LOGIN")
@@ -108,6 +108,14 @@ public void setCreatedByUserLogin(String createdByUserLogin) {
 }
 public String getLastModByuserLogin() {
 	return lastModByuserLogin;
+}
+
+
+public Timestamp getLastModDate() {
+	return lastModDate;
+}
+public void setLastModDate(Timestamp lastModDate) {
+	this.lastModDate = lastModDate;
 }
 public void setLastModByuserLogin(String lastModByuserLogin) {
 	this.lastModByuserLogin = lastModByuserLogin;

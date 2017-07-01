@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-import com.cornerstones.models.Party;
+import com.cornerstones.party.models.*;
 
 /**
  * @author jimzhu
@@ -36,7 +36,7 @@ public class partyDAOImp implements partyDAO {
 	@Override
 	public List<Party> getParty() {
 		// TODO Auto-generated method stub
-	    String queryStr="FROM PARTY ORDER BY APRTY.PARTY_ID";
+	    String queryStr="FROM Party ORDER BY partyId";
 	    
 		return (List<Party>) entityManager.createQuery(queryStr).getResultList();
 	}
@@ -95,7 +95,7 @@ public class partyDAOImp implements partyDAO {
 	public boolean partyExist(String partyId) {
 		// TODO Auto-generated method stub
 		
-		String queryStr = "FROM PARTY WHERE PARTY_ID=? ";
+		String queryStr = "FROM Party WHERE partyId=? ";
 		int count =entityManager.createQuery(queryStr).setParameter(1, partyId).getResultList().size();
 		return count >0 ? true:false;
 	}

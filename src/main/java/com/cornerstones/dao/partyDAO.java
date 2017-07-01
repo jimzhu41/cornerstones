@@ -8,7 +8,7 @@
 package com.cornerstones.dao;
 
 import java.util.List;
-import com.cornerstones.models.Party;
+import com.cornerstones.party.models.*;
 
 
 public interface partyDAO {

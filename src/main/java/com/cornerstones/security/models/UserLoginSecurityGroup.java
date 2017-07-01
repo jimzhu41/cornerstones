@@ -33,7 +33,7 @@ public class UserLoginSecurityGroup {
 	@Column(name="FROM_DATE", nullable=false)
 	private Date fromDate;
 	
-	@Column(name="THRU-DATE", nullable=true)
+	@Column(name="THRU_DATE", nullable=true)
 	private Date thruDate;
 	
 	@Column (name="LAST_UPDATED_STAMP")
