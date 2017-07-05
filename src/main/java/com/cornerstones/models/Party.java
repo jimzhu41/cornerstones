@@ -1,6 +1,8 @@
 package com.cornerstones.models;
 
-
+/*
+ * PARTY Entity Catalog=ofbiz
+ */
 
 //Generated Jul 1, 2017 4:29:21 PM by Hibernate Tools 4.3.1.Final
 
