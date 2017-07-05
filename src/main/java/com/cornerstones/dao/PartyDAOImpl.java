@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-import com.cornerstones.party.models.*;
+import com.cornerstones.models.Party;
 
 /**
  * @author jimzhu
@@ -24,7 +24,7 @@ import com.cornerstones.party.models.*;
 @Transactional
 @Repository
 
-public class partyDAOImp implements partyDAO {
+public class PartyDAOImpl implements PartyDAO {
 
 	/* (non-Javadoc)
 	 * @see com.cornerstones.dao.partyDAO#getParty()
@@ -33,6 +33,7 @@ public class partyDAOImp implements partyDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Party> getParty() {
 		// TODO Auto-generated method stub
@@ -71,7 +72,7 @@ public class partyDAOImp implements partyDAO {
       _party.setPartyId(party.getPartyId());
       _party.setPartyTypeId(party.getPartyTypeId());
       _party.setExternalId(party.getExternalId());
-      _party.setPrefCurrencyUOMId(party.getPrefCurrencyUOMId());
+      _party.setPreferredCurrencyUomId(party.getPreferredCurrencyUomId());
       _party.setDescription(party.getDescription());
       _party.setStatusId(party.getStatusId());
       _party.setLastUpdatedStamp(party.getLastUpdatedStamp());

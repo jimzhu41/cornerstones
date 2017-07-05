@@ -8,10 +8,10 @@
 package com.cornerstones.dao;
 
 import java.util.List;
-import com.cornerstones.party.models.*;
+import com.cornerstones.models.Party;;
 
 
-public interface partyDAO {
+public interface PartyDAO {
  List<Party> getParty();
  Party getPartyById(String partyid);
  void addParty (Party party);
