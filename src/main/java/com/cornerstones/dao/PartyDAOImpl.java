@@ -97,7 +97,7 @@ public class PartyDAOImpl implements PartyDAO {
 		// TODO Auto-generated method stub
 		
 		String queryStr = "FROM Party WHERE partyId=? ";
-		int count =entityManager.createQuery(queryStr).setParameter(1, partyId).getResultList().size();
+		int count =entityManager.createQuery(queryStr,Party.class).setParameter(1, partyId).getResultList().size();
 		return count >0 ? true:false;
 	}
 

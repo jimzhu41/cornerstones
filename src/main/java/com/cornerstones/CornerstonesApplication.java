@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import com.cornerstones.models.Party;
 import com.cornerstones.models.UserLogins;
 import com.cornerstones.dao.*;
+import com.cornerstones.util.*;
 
 
 @SpringBootApplication
@@ -48,14 +49,14 @@ public class CornerstonesApplication implements CommandLineRunner {
 		
 		UserLogins userLogin2 = new UserLogins();
 		
-		userLogin2.setUserLoginId("jimzhu@jimzhu2.info");
+		userLogin2.setUserLoginId("jimzhu@jimzhu6.info");
 		userLogin2.setRequirePasswordChange('N');
 		userLogin2.setCurrentPassword("jimzhu41");
 		userLogin2.setPartyId("admin");
 		userLogin2.setCreatedStamp(new Date());
 		userLogin2.setLastUpdatedStamp(new Date());
 		
-		userLoginsDao.addUserLogins(userLogin2);
+		//userLoginsDao.addUserLogins(userLogin2);
 		List<UserLogins>userLogins = new ArrayList();
 		userLogins = userLoginsDao.getUserLogins();
 		
@@ -66,7 +67,7 @@ public class CornerstonesApplication implements CommandLineRunner {
 		
 		System.out.println(userLoginsDao.userLoginsExist("admin"));
 		
-		 
+		PropertiesUtil.getProperties("security");
 		
 	}
 }
