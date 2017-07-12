@@ -11,11 +11,11 @@ import org.apache.commons.validator.EmailValidator;
 
 import com.cornerstones.util.isEmpty;
 import com.ibm.icu.util.Calendar;
-public class ValidationUtil {
+public class ValidateUtil {
 
 
 
-	    public static final String module = ValidationUtil.class.getName();
+	    public static final String module = ValidateUtil.class.getName();
 
 	    /** boolean specifying by default whether or not it is okay for a String to be empty */
 	    public static final boolean defaultEmptyOK = true;

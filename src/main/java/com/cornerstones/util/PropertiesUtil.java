@@ -1,30 +1,23 @@
 package com.cornerstones.util;
 
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URL;
-import java.text.MessageFormat;
 import java.util.Enumeration;
-import java.util.InvalidPropertiesFormatException;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
+
 import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import org.apache.log4j.*;
 
-import com.cornerstones.*;
+import com.cornerstones.CornerstonesApplication;
+ 
+
+
+ 
 
 public class PropertiesUtil {
 	
@@ -39,7 +32,6 @@ public class PropertiesUtil {
 	 
 		public static final String model = PropertiesUtil.class.getName();
 		
-
 	    /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
 	     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
 	     * @param name The name of the property in the properties file
@@ -79,6 +71,9 @@ public class PropertiesUtil {
 		public static Properties getProperties(String resource) {
 	        Properties prop = new Properties();
 	        InputStream input = null;
+	        
+	        HashMap<String,String> propMap = new HashMap<String,String>();
+			
 	   try {  
 			if (resource == null || resource.length() <= 0) {
 	            return null;
@@ -92,11 +87,15 @@ public class PropertiesUtil {
 	        
 			prop.load(input);
 			
+			 
+			
 			Enumeration<?> e = prop.propertyNames();
+			
 			while (e.hasMoreElements()) {
 				String key = (String) e.nextElement();
-				System.out.println(prop.getProperty(key));
-			//	logger.debug(prop.getProperty(key));
+			    propMap.put(key, prop.getProperty(key));
+				//System.out.println(prop.getProperty(key));
+			    
 			}
 			System.out.println(prop.getProperty("password.length.min"));
 	   }
@@ -105,7 +104,11 @@ public class PropertiesUtil {
 		   ex.printStackTrace();
 	   }
 	        
-	     
+	       Iterator<String> propIterator = propMap.keySet().iterator();
+	       while(propIterator.hasNext()) {
+	    	   System.out.println("key" + propIterator.next()+"value" + propMap.get(propIterator.next()));
+	       }
+	       
 	        return prop;
 	    }
 
@@ -126,6 +129,92 @@ public class PropertiesUtil {
 	      }
 		  return label;
 		  }
+	 
+	 
+	     
+	   
+	    /** Returns the value of the specified property name from the specified resource/properties file.
+	     * If the specified property name or properties file is not found, the defaultValue is returned.
+	     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+	     * @param name The name of the property in the properties file
+	     * @param defaultValue The value to return if the property is not found
+	     * @return The value of the property in the properties file, or if not found then the defaultValue
+	     */
+	    public static String getPropertyValue(String resource, String name, String defaultValue) {
+	        String value = getPropertyValue(resource, name);
+
+	        if (ValidateUtil.isEmpty(value))
+	            return defaultValue;
+	        else
+	            return value;
+	    }
+
+	    public static double getPropertyNumber(String resource, String name, double defaultValue) {
+	        String str = getPropertyValue(resource, name);
+	        if (str == null) {
+	            return defaultValue;
+	        }
+
+	        try {
+	            return Double.parseDouble(str);
+	        } catch (NumberFormatException nfe) {
+	            return defaultValue;
+	        }
+	    }
+
+	    public static double getPropertyNumber(String resource, String name) {
+	        return getPropertyNumber(resource, name, 0.00000);
+	    }
+
+	    /**
+	     * Returns the Number as a Number-Object of the specified property name from the specified resource/properties file.
+	     * If the specified property name or properties file is not found, the defaultObject is returned.
+	     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+	     * @param name The name of the property in the properties file
+	     * @param defaultNumber Optional: The Number to return if the property is not found.
+	     * @param type A String of the the Object the Number is converted to (like "Integer").
+	     * @return A Number-Object of the property as the defined type; or if not found the defaultObject
+	     */
+	    private static Number getPropertyNumber(String resource, String name, Number defaultNumber, String type) {
+	        String str = getPropertyValue(resource, name);
+	        if (ValidateUtil.isEmpty(str)) {
+	            //Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
+	            return defaultNumber;
+	        } else
+	            try {
+	                return (Number)(ObjectType.simpleTypeConvert(str, type, null, null));
+	            } catch (Exception e) {
+	               // Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
+	            }
+	            return defaultNumber;
+	    }
+
+	    /**
+	     * Returns a Boolean-Object of the specified property name from the specified resource/properties file.
+	     * If the specified property name or properties file is not found, the defaultValue is returned.
+	     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+	     * @param name The name of the property in the properties file
+	     * @param defaultValue Optional: The Value to return if the property is not found or not the correct format.
+	     * @return A Boolean-Object of the property; or if not found the defaultValue
+	     */
+	    public static Boolean getPropertyAsBoolean(String resource, String name, boolean defaultValue) {
+	        String str = getPropertyValue(resource, name);
+	        if ("true".equalsIgnoreCase(str)) return Boolean.TRUE;
+	        else if ("false".equalsIgnoreCase(str)) return Boolean.FALSE;
+	        else return defaultValue;
+	    }
+
+	    /**
+	     * Returns an Integer-Object of the specified property name from the specified resource/properties file.
+	     * If the specified property name or properties file is not found, the defaultNumber is returned.
+	     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+	     * @param name The name of the property in the properties file
+	     * @param defaultNumber Optional: The Value to return if the property is not found.
+	     * @return An Integer-Object of the property; or if not found the defaultNumber
+	     */
+	    public static Integer getPropertyAsInteger(String resource, String name, int defaultNumber) {
+	        return (Integer)getPropertyNumber(resource, name, defaultNumber, "Integer");
+	    }
 		 
 	 }	 
 		 

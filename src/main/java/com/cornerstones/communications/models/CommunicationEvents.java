@@ -2,7 +2,7 @@
   * COMMUNICATION ENVET Entity
  * 
  */
-package com.cornerstones.communication.models;
+package com.cornerstones.communications.models;
 
 /**
  * @author jimzhu

@@ -953,7 +953,7 @@ public class DateTimeUtil {
 	     */
 	    public static DateFormat toDateFormat(String dateFormat, TimeZone tz, Locale locale) {
 	        DateFormat df = null;
-	        if (ValidationUtil.isEmpty(dateFormat)) {
+	        if (ValidateUtil.isEmpty(dateFormat)) {
 	            df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 	        } else {
 	            df = new SimpleDateFormat(dateFormat);
@@ -971,7 +971,7 @@ public class DateTimeUtil {
 	     */
 	    public static DateFormat toDateTimeFormat(String dateTimeFormat, TimeZone tz, Locale locale) {
 	        DateFormat df = null;
-	        if (ValidationUtil.isEmpty(dateTimeFormat)) {
+	        if (ValidateUtil.isEmpty(dateTimeFormat)) {
 	            df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
 	        } else {
 	            df = new SimpleDateFormat(dateTimeFormat);
@@ -989,7 +989,7 @@ public class DateTimeUtil {
 	     */
 	    public static DateFormat toTimeFormat(String timeFormat, TimeZone tz, Locale locale) {
 	        DateFormat df = null;
-	        if (ValidationUtil.isEmpty(timeFormat)) {
+	        if (ValidateUtil.isEmpty(timeFormat)) {
 	            df = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale);
 	        } else {
 	            df = new SimpleDateFormat(timeFormat);
@@ -1041,7 +1041,7 @@ public class DateTimeUtil {
 	                    availableTimeZoneList = new LinkedList<TimeZone>();
 	                    List<String> idList = null;
 	                    String tzString = PropertiesUtil.getPropertyValue("general", "timeZones.available");
-	                    if (ValidationUtil.isNotEmpty(tzString)) {
+	                    if (ValidateUtil.isNotEmpty(tzString)) {
 	                        idList = StringUtil.splitString(tzString, ",");
 	                    } else {
 	                        idList = Arrays.asList(TimeZone.getAvailableIDs());
@@ -1061,7 +1061,7 @@ public class DateTimeUtil {
 	     * @see java.util.TimeZone
 	     */
 	    public static TimeZone toTimeZone(String tzId) {
-	        if (ValidationUtil.isEmpty(tzId)) {
+	        if (ValidateUtil.isEmpty(tzId)) {
 	            return TimeZone.getDefault();
 	        } else {
 	            return TimeZone.getTimeZone(tzId);
